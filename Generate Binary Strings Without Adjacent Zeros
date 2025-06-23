@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    void solve(int ind, int n, string curr, vector<string>&ans){
+        if(ind==n){
+            ans.push_back(curr);
+            return;
+        }
+
+        solve(ind+1, n, curr+'1', ans);
+        if(ind==0 || (ind>0 && curr[ind-1]!='0')){
+            solve(ind+1, n, curr+'0', ans);
+        }
+        return;
+    }
+
+    vector<string> validStrings(int n) {
+        vector<string>ans;
+        string curr="";
+
+        solve(0, n, curr, ans);
+
+        return ans;
+    }
+};
