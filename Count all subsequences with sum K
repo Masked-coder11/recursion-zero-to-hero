@@ -1,0 +1,36 @@
+// program to check if there exist a subsequence with sum k
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int ind, int sum, vector<int>&nums, int target){
+    
+    if(ind==nums.size()){
+        if(sum==target) return 1;
+        
+        return 0;
+    }
+    
+    // take
+    int  take = solve(ind+1, sum+nums[ind],nums, target);
+    
+    // not_take
+    int  not_take = solve(ind+1, sum,nums, target);
+    
+    return take + not_take;
+}
+
+int  checkSubsequenceSum(vector<int>&nums, int target){
+    int sum=0;
+    return solve(0, sum, nums, target);
+}
+
+
+int main() {
+    
+    vector<int>nums={10,1,2,7,6,5};
+    int target = 8;
+    
+    cout<<checkSubsequenceSum(nums, target);
+
+    return 0;
+}
