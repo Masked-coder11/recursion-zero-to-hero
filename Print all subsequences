@@ -1,0 +1,32 @@
+class Solution {
+  public:
+    void solve(int ind, string curr, vector<string>&ans, string s){
+        if(ind==s.length()){
+            if(curr.length()!=0){
+                ans.push_back(curr);
+            }
+            return;
+        }
+        
+        // not_take
+        solve(ind+1, curr, ans, s);
+        
+        // take
+        solve(ind+1, curr+s[ind], ans, s);
+        
+        return;
+        
+        
+        
+    }
+  
+    vector<string> AllPossibleStrings(string s) {
+        // Code here
+        vector<string>ans;
+        string curr="";
+        solve(0, curr, ans, s);
+        sort(ans.begin(), ans.end());
+        
+        return ans;
+    }
+};
