@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void solve(int ind, vector<int>curr, vector<vector<int>>&ans, vector<int>&arr){
+        ans.push_back(curr);
+        for(int i=ind;i<arr.size();i++){
+            if(i>ind && arr[i]==arr[i-1]) continue;
+
+            curr.push_back(arr[i]);
+            solve(i+1, curr, ans, arr);
+            curr.pop_back();
+        }
+        return;
+    }
+
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>>ans;
+        vector<int>curr;
+        solve(0, curr, ans, nums);
+        return ans;
+    }
+};
