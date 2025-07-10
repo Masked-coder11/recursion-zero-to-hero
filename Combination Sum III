@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void solve(int num, vector<int>curr, int sum, vector<vector<int>>&ans, int k, int n){
+        if(curr.size()==k){
+            if(sum==n){
+                ans.push_back(curr);
+            }
+            return;
+        }
+        if(num>=10) return;
+
+        // not_take
+        solve(num+1, curr, sum, ans, k, n);
+
+        // take
+        if(sum+num<=n){
+            curr.push_back(num);
+            solve(num+1, curr, sum+num, ans, k, n);
+            curr.pop_back();
+        }
+
+        return;
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>>ans;
+        vector<int>curr;
+        solve(1, curr, 0, ans, k, n);
+
+        return ans;
+    }
+};
