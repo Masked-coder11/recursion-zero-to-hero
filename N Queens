@@ -1,0 +1,51 @@
+class Solution {
+public:
+    bool isValid(vector<string>curr, int row, int col){
+        int n=curr.size();
+        for(int i=0;i<curr.size();i++){
+            if(i==row) continue;
+            if(curr[i][col]=='Q') return false;
+        }
+
+        for(int i=0;i<n;i++){
+            if(i==col) continue;
+            if(curr[row][i]=='Q') return false;
+        }
+
+        for(int i=-n;i<=n;i++){
+            if(i==0) continue;
+            int nrow=row+i, ncol=col+i;
+            if(nrow>=0 && nrow<curr.size() && ncol>=0 && ncol<curr.size() && curr[nrow][ncol]=='Q') return false;
+
+            nrow=row-i;
+            ncol=col+i;
+            if(nrow>=0 && nrow<curr.size() && ncol>=0 && ncol<curr.size() && curr[nrow][ncol]=='Q') return false;
+
+        }
+
+        return true;
+    }
+
+    void solve(int ind, vector<string>curr, vector<vector<string>>&ans){
+        if(ind==curr.size()){
+            ans.push_back(curr);
+            return;
+        }
+
+        for(int i=0;i<curr.size();i++){
+            curr[ind][i]='Q';
+            if(isValid(curr, ind, i)){
+                solve(ind+1, curr, ans);
+            }
+            curr[ind][i]='.';
+        }
+        return;
+    }
+
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+        vector<string>curr(n, string(n, '.'));
+        solve(0, curr, ans);
+        return ans;
+    }
+};
